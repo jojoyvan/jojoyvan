@@ -1,9 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAOUL Pro - Présentation de mes produits</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+            color: #333;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner {
+            background-color: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product img:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fenêtre coulissante */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-button:hover {
+            color: #000;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue sur mon site GitHub Pages !</h1>
+
+    <header>
+        <h1>RAOUL Pro</h1>
+    </header>
+
+    <div class="banner">
+        <h2>Découvrez nos produits exceptionnels</h2>
+        <p>Des produits de qualité pour répondre à tous vos besoins.</p>
+    </div>
+
+    <div class="products">
+        <div class="product" onclick="openModal('Aurora Lumina', 'https://i.imgur.com/2L78YMg.jpg', 'L\'Aurora Lumina est un produit révolutionnaire qui allie design élégant et performances exceptionnelles. Idéal pour ceux qui recherchent à la fois style et fonctionnalité.')">
+            <img src="https://i.imgur.com/2L78YMg.jpg" alt="Aurora Lumina">
+            <h3>Aurora Lumina</h3>
+            <p>Un produit qui illumine votre quotidien.</p>
+        </div>
+        <div class="product" onclick="openModal('Nexus Prime', 'https://i.imgur.com/0mc6cwB.jpg', 'Le Nexus Prime est la solution ultime pour les professionnels exigeants. Avec ses fonctionnalités avancées et son design ergonomique, il redéfinit les standards de qualité.')">
+            <img src="https://i.imgur.com/0mc6cwB.jpg" alt="Nexus Prime">
+            <h3>Nexus Prime</h3>
+            <p>La connexion par excellence.</p>
+        </div>
+    </div>
+
+    <!-- Fenêtre modale -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="Produit" style="max-width: 100%; border-radius: 10px; margin-bottom: 20px;">
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 RAOUL Pro. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Fonction pour ouvrir la fenêtre modale
+        function openModal(title, imageSrc, description) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalImage = document.getElementById('modal-image');
+            const modalDescription = document.getElementById('modal-description');
+
+            modalTitle.textContent = title;
+            modalImage.src = imageSrc;
+            modalDescription.textContent = description;
+
+            modal.style.display = 'flex';
+        }
+
+        // Fonction pour fermer la fenêtre modale
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        // Fermer la fenêtre modale en cliquant à l'extérieur
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+
 </body>
 </html>
